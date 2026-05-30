@@ -61,7 +61,7 @@ class _IlSecimiState extends State<IlSecimi> {
   }
 }
 
-// --- POLİKLİNİK VE SAAT SEÇİM ALANI ---
+// POLİKLİNİK,SAAT ve TARİH SEÇİMİ 
 class PoliklinikSecimi extends StatefulWidget {
   final String il;
   const PoliklinikSecimi({super.key, required this.il});

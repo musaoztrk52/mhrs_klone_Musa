@@ -15,7 +15,7 @@ class _GirisSistemiState extends State<GirisSistemi> {
   final TextEditingController _sifreController = TextEditingController();
   bool _sifreGizli = true;
 
-  // Şifre kurallarının durum takibi
+  // Şifre kuralları
   bool _hasMinLength = false;
   bool _hasUppercase = false;
   bool _hasLowercase = false;
@@ -39,7 +39,7 @@ class _GirisSistemiState extends State<GirisSistemi> {
     });
   }
 
-  // Kullanıcıya şık ve açıklayıcı bir hata metni dönen fonksiyon
+  // sifre  içinde olması gereken karakterleri belirten fonksiyon
   String? _sifreHataMesajiOlustur() {
     if (_hasMinLength && _hasUppercase && _hasLowercase && _hasDigits && _hasSpecialChar) {
       return null; 
@@ -136,7 +136,7 @@ class _GirisSistemiState extends State<GirisSistemi> {
                             obscureText: _sifreGizli,
                             decoration: InputDecoration(
                               labelText: "Parola",
-                              // DÜZELTİLEN YER: errorMaxLines parametresi hata vermemesi için doğru yere, yani InputDecoration içerisine alındı.
+                              
                               errorMaxLines: 2, 
                               prefixIcon: const Icon(Icons.lock_open_rounded),
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
@@ -181,7 +181,7 @@ class _GirisSistemiState extends State<GirisSistemi> {
                               }
                             },
                             icon: const Icon(Icons.account_balance, color: Color(0xFF1565C0)),
-                            label: const Text("e-Devlet Kapısı ile Giriş", style: TextStyle(color: Color(0xFF1565C0), fontWeight: FontWeight.bold)),
+                            label: const Text("e-Devlet Kapisı ile Giriş", style: TextStyle(color: Color(0xFF1565C0), fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),
