@@ -14,7 +14,7 @@ Uygulama şu anda aşağıdaki temel ekranları ve işlevleri içermektedir:
 * Visual Studio Code(Flutter)
 
 # Dil
-* Main.Dart 
+* Dart 
 
 ## Ekran Görüntüleri
 
