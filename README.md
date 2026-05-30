@@ -13,7 +13,7 @@ Uygulama şu anda aşağıdaki temel ekranları ve işlevleri içermektedir:
 # Kullanılan program
 * Visual Studio Code(Flutter)
 
-# Kullanılan dil
+# Dil
 * Main.Dart 
 
 ## Ekran Görüntüleri
