@@ -11,6 +11,7 @@ class AnaEkran extends StatefulWidget {
 class _AnaEkranState extends State<AnaEkran> {
   int _secilenIndis = 0;
   final List<Map<String, String>> _aktifRandevular = [];
+  // Burada Ana Ekranı oluşturdum ve tasarımını yaptım
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,7 @@ class _AnaEkranState extends State<AnaEkran> {
           ],
         ),
       ),
+      //Burada Hangi İşlemi Yapacağı konusunda Yönlendirmeler oluşturdum
       body: _secilenIndis == 0
           ? Column(
               children: [
@@ -147,6 +149,7 @@ class _AnaEkranState extends State<AnaEkran> {
                 ),
               ],
             )
+            //Bu Kısım Profil ve Ayarlar Kısmı Özellikleri
           : const Center(
               child: Text("Profil ve Ayarlar Sayfası"),
             ),
