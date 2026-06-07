@@ -19,7 +19,7 @@ class _GirisSistemiState extends State<GirisSistemi> {
     _sifreController.dispose();
     super.dispose();
   }
-
+//Burada İnternet üzerienden logo eklemesi yaptım
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +82,7 @@ class _GirisSistemiState extends State<GirisSistemi> {
                       );
                     }
                   },
+                  //E-Devlet İle giriş kısmı ama buton aktif değil orjinali gibi gözükmesi için koydum
                   child: const Text("GİRİŞ YAP"),
                 ),
                 const SizedBox(height: 15),

@@ -6,7 +6,7 @@ class IlSecimi extends StatefulWidget {
   @override
   State<IlSecimi> createState() => _IlSecimiState();
 }
-
+// 81 İL Eklemesi Yaptım
 class _IlSecimiState extends State<IlSecimi> {
   final List<String> _iller = [
     "Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin", "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir", "Kars", "Kastamonu", "Kayseri", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Kahramanmaraş", "Mardin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van", "Yozgat", "Zonguldak", "Aksaray", "Bayburt", "Karaman", "Kırıkkale", "Batman", "Şırnak", "Bartın", "Ardahan", "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"
@@ -18,7 +18,7 @@ class _IlSecimiState extends State<IlSecimi> {
     super.initState(); 
     _filtrelenmis = _iller; 
   }
-
+//Yukarıya şehir arama butonu ekledim
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +46,7 @@ class _IlSecimiState extends State<IlSecimi> {
               },
             ),
           ),
+          //Polikinlik seçim kıesmı
           Expanded(
             child: ListView.builder(
               itemCount: _filtrelenmis.length,
@@ -72,7 +73,7 @@ class _IlSecimiState extends State<IlSecimi> {
   }
 }
 
-// --- POLİKLİNİK, SAAT ve TARİH SEÇİMİ ---
+// Polikinlik,saat ve tarih seçimi
 class PoliklinikSecimi extends StatefulWidget {
   final String il;
   const PoliklinikSecimi({super.key, required this.il});
@@ -96,7 +97,7 @@ class _PoliklinikSecimiState extends State<PoliklinikSecimi> {
     super.initState();
     _saatListesi = _saatleriUret();
   }
-
+// saat sistemi kodu
   List<String> _saatleriUret() {
     List<String> saatler = [];
     for (int h = 9; h < 17; h++) {
