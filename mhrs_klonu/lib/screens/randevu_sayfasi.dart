@@ -28,31 +28,42 @@ class _IlSecimiState extends State<IlSecimi> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Şehir ara...",
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                filled: true,
-                fillColor: Colors.grey.shade100,
-                contentPadding: EdgeInsets.zero,
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
               ),
-              onChanged: (v) => setState(() => _filtrelenmis = _iller.where((il) => il.toLowerCase().contains(v.toLowerCase())).toList()),
+              onChanged: (v) {
+                List<String> sonuclar = [];
+                for (var il in _iller) {
+                  if (il.toLowerCase().contains(v.toLowerCase())) {
+                    sonuclar.add(il);
+                  }
+                }
+                setState(() {
+                  _filtrelenmis = sonuclar;
+                });
+              },
             ),
           ),
           Expanded(
-            child: ListView.separated(
+            child: ListView.builder(
               itemCount: _filtrelenmis.length,
-              separatorBuilder: (c, i) => const Divider(height: 1),
-              itemBuilder: (c, i) => ListTile(
-                title: Text(_filtrelenmis[i], style: const TextStyle(fontWeight: FontWeight.w500)),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                onTap: () async {
-                  final res = await Navigator.push(context, MaterialPageRoute(builder: (ctx) => PoliklinikSecimi(il: _filtrelenmis[i])));
-                  if (res != null && context.mounted) {
-                    Navigator.pop(context, res);
-                  }
-                },
-              ),
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(_filtrelenmis[index]),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () async {
+                    final res = await Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (ctx) => PoliklinikSecimi(il: _filtrelenmis[index]))
+                    );
+                    if (res != null && context.mounted) {
+                      Navigator.pop(context, res);
+                    }
+                  },
+                );
+              },
             ),
           ),
         ],
@@ -61,7 +72,7 @@ class _IlSecimiState extends State<IlSecimi> {
   }
 }
 
-// POLİKLİNİK,SAAT ve TARİH SEÇİMİ 
+// --- POLİKLİNİK, SAAT ve TARİH SEÇİMİ ---
 class PoliklinikSecimi extends StatefulWidget {
   final String il;
   const PoliklinikSecimi({super.key, required this.il});
@@ -106,20 +117,28 @@ class _PoliklinikSecimiState extends State<PoliklinikSecimi> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Klinik Bilgisi", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const Text("Klinik Bilgisi", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
               isExpanded: true,
-              decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
               items: _poller.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
               onChanged: (v) => setState(() { _p = v; _s = null; }),
               hint: const Text("Poliklinik seçiniz"),
             ),
             const SizedBox(height: 25),
-            const Text("Randevu Tarihi", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const Text("Randevu Tarihi", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             const SizedBox(height: 10),
-            InkWell(
-              onTap: () async {
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black87,
+                minimumSize: const Size(double.infinity, 50),
+                side: const BorderSide(color: Colors.grey),
+              ),
+              icon: const Icon(Icons.calendar_month, color: Colors.red),
+              label: Text("${_t.day}.${_t.month}.${_t.year}"),
+              onPressed: () async {
                 final d = await showDatePicker(
                   context: context, 
                   initialDate: _t, 
@@ -128,21 +147,10 @@ class _PoliklinikSecimiState extends State<PoliklinikSecimi> {
                 );
                 if (d != null) setState(() => _t = d);
               },
-              child: Container(
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(12)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("${_t.day}.${_t.month}.${_t.year}", style: const TextStyle(fontSize: 16)),
-                    const Icon(Icons.calendar_month, color: Colors.red),
-                  ],
-                ),
-              ),
             ),
             const SizedBox(height: 25),
             if (_p != null) ...[
-              const Text("Müsait Saatler (15 dk)", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              const Text("Müsait Saatler", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 15),
               GridView.builder(
                 shrinkWrap: true,
@@ -156,13 +164,15 @@ class _PoliklinikSecimiState extends State<PoliklinikSecimi> {
                 itemCount: _saatListesi.length,
                 itemBuilder: (c, i) {
                   final s = _saatListesi[i];
-                  bool isSelected = _s == s;
-                  return ChoiceChip(
-                    label: Text(s, style: TextStyle(color: isSelected ? Colors.white : Colors.black)),
-                    selected: isSelected,
-                    selectedColor: const Color(0xFFE10613),
-                    onSelected: (val) => setState(() => _s = val ? s : null),
-                    showCheckmark: false,
+                  bool seciliMi = _s == s;
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: seciliMi ? const Color(0xFFE10613) : Colors.grey.shade200,
+                      foregroundColor: seciliMi ? Colors.white : Colors.black87,
+                      padding: EdgeInsets.zero,
+                    ),
+                    onPressed: () => setState(() => _s = seciliMi ? null : s),
+                    child: Text(s),
                   );
                 },
               ),
@@ -172,8 +182,7 @@ class _PoliklinikSecimiState extends State<PoliklinikSecimi> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFE10613),
                 foregroundColor: Colors.white,
-                minimumSize: const Size(double.infinity, 60),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                minimumSize: const Size(double.infinity, 55),
               ),
               onPressed: (_p != null && _s != null) 
                 ? () => Navigator.pop(context, {

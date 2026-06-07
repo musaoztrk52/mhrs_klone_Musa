@@ -29,3 +29,6 @@ Uygulama şu anda aşağıdaki temel ekranları ve işlevleri içermektedir:
 # Randevu Ekranı
 ![Randevu](./randevu_bilgisi.png)
 * Randevunun aktif gözüktüğü ekrandır
+
+# Ad-Soyad-Numara
+* Musa Öztürk 254602005
